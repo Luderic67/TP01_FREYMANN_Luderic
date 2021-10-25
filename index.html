@@ -81,16 +81,34 @@
             $("#inscription").submit(function(event) {
                 if ($("#password").text === $("#confirm_password")) {
                     if ($("#password").val() !== $("#confirm_password").val()) {
-                    $(".input_container_password").addClass("wrongPassword");
-                    $(".input_container_confirm_password").addClass("wrongPassword");
-                    $(".error_message").text("Les mots de passe ne sont pas similaires.");
-                } else {
-                    console.log("tester");
-                    $(".input_container_password").removeClass("wrongPassword");
-                    $(".input_container_confirm_password").removeClass("wrongPassword");
-                    $(".error_message").text("");
+                        $(".input_container_password").addClass("wrongPassword");
+                        $(".input_container_confirm_password").addClass("wrongPassword");
+                        $(".error_message").text("Les mots de passe ne sont pas similaires.");
+                    } else {
+                        console.log("tester");
+                        $(".input_container_password").removeClass("wrongPassword");
+                        $(".input_container_confirm_password").removeClass("wrongPassword");
+                        $(".error_message").text("");
+                    }
                 }
-                }
+            });
+
+            $(".button_submit").click(function() {
+                let missing_fields = 0;
+                $('form#inscription').find('input').each(function(){
+                    if($(this).prop('required') && $(this).val() === ""){
+                        $(this).addClass("missing_field");
+                        missing_fields++;
+                    } else {
+                        $(this).removeClass("missing_field");
+                    }
+
+                    if (missing_fields > 0) {
+                        $(".error_message").text("Field with * must not be empty.");
+                    } else {
+                        $(".error_message").text("");
+                    }
+                });
             });
         });
     </script>
