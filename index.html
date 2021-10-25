@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet/less" type="text/css" href="styles.less" />
+    <script src="https://cdn.jsdelivr.net/npm/less@4.1.1" ></script>
+    <title>TP01_FREYMANN_Luderic</title>
+</head>
+<body>
+    <h1>Inscription compte client</h1>
+    <form id="inscription">
+        <div class="group">
+            <h2>Informations personnelles</h2>
+            <div class="input_container">
+                <label for="nom">Nom</label>
+                <input type="text" name="nom" id="nom" required>
+            </div>
+            <div class="input_container">
+                <label for="prenom">Prénom</label>
+                <input type="text" name="prenom" id="prenom" required>
+            </div>
+            <div class="input_container">
+                <label for="adresse">Adresse</label>
+                <input type="text" name="adresse" id="adresse" required>
+            </div>
+            <div class="input_container">
+                <label for="postal">Code postal</label>
+                <input type="number" name="postal" id="postal" required>
+            </div>
+            <div class="input_container">
+                <label for="ville">Ville</label>
+                <input type="text" name="ville" id="ville" required>
+            </div>
+            <div class="input_container">
+                <label for="telephone">Téléphone</label>
+                <input type="tel" pattern="[0-9]{10}" name="telephone" id="telephone" required>
+            </div>
+            <div class="input_container">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" required>
+            </div>
+            <div class="input_container">
+                <label for="civilite">Civilité</label>
+                <input type="text" name="civilite" id="civilite" required>
+            </div>
+        </div>
+        <div class="group">
+            <h2>Informations de connexion</h2>
+            <div class="input_container">
+                <label for="login">Login</label>
+                <input type="text" name="login" id="login" required>
+            </div> 
+            <div class="input_container input_container_password">
+                <label for="password">Mot de passe</label>
+                <input type="password" name="password" id="password" required>
+            </div>
+            <div class="input_container input_container_confirm_password">
+                <label for="confirm_password">Confirmation du mot de passe</label>
+                <input type="password" name="confirm_password" id="confirm_password" required>
+            </div>
+        </div>
+        <p class="error_message"></p>
+        <div class="group">
+          <input class="button_submit" type="submit" value="S'inscrire">
+        </div>
+    </form>
+
+    <script src='http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.js'></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            // Add '*' on label for required field
+            $('form#inscription').find('input').each(function(){
+                if($(this).prop('required')){
+                    $("label[for='"+ this.id +"']").addClass("required");
+                }
+            });
+
+            // Validate on submit
+            $("#inscription").submit(function(event) {
+                if ($("#password").text === $("#confirm_password")) {
+                    if ($("#password").val() !== $("#confirm_password").val()) {
+                    $(".input_container_password").addClass("wrongPassword");
+                    $(".input_container_confirm_password").addClass("wrongPassword");
+                    $(".error_message").text("Les mots de passe ne sont pas similaires.");
+                } else {
+                    console.log("tester");
+                    $(".input_container_password").removeClass("wrongPassword");
+                    $(".input_container_confirm_password").removeClass("wrongPassword");
+                    $(".error_message").text("");
+                }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
